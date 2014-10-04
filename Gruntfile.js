@@ -17,6 +17,13 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: pkgConfig,
 
+    'gh-pages': {
+      options: {
+        base: 'dist'
+      },
+      src: ['**']
+    },
+
     webpack: {
       options: webpackDistConfig,
 
@@ -119,7 +126,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', ['karma']);
 
-  grunt.registerTask('build', ['clean', 'copy', 'webpack']);
+  grunt.registerTask('build', ['clean', 'copy', 'webpack', 'gh-pages']);
 
   grunt.registerTask('default', []);
 };

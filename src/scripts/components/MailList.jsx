@@ -14,11 +14,15 @@ var ListGroupItem = require('react-bootstrap/ListGroupItem');
 var MailActions = require('../actions/MailActions');
 var MailItemHeader = require('./MailItemHeader');
 
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var MailList = React.createClass({
   render: function() {
     return (
       <ListGroup>
-        {this.renderMailItems()}
+        <ReactCSSTransitionGroup transitionName="example">
+          {this.renderMailItems()}
+        </ReactCSSTransitionGroup>
       </ListGroup>
     );
   },
