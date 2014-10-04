@@ -32,13 +32,10 @@ var ActiveMail = React.createClass({
   },
 
   render: function() {
-    console.log('render', this.state.mail);
     if (!this.state.mail) {
       return <div></div>;
     } else {
-
       var mail = this.state.mail;
-      console.log('render', mail.categories);
 
       return <ListGroup>
         <ListGroupItem key="head">

@@ -12,7 +12,15 @@ var MailActions = require('../actions/MailActions');
 
 var Star = React.createClass({
   render: function() {
-    return <span className="label label-danger">
+    var isProcessing = this.props.mail.state === "removing";
+
+    var cx = React.addons.classSet({
+      label: true,
+      "label-danger": !isProcessing,
+      "label-default": isProcessing
+    });
+
+    return <span className={cx}>
       {this.props.category}&nbsp;
       <span className="glyphicon glyphicon-remove" onClick={this.handleClick}></span>
     </span>;

@@ -8,7 +8,6 @@ var MailConstants = require('../constants/MailConstants');
 
 var mails = [];
 var loaded = false;
-var searchOptions = {};
 var active = null;
 
 var RecordStore = new Store({
@@ -26,10 +25,6 @@ var RecordStore = new Store({
     return loaded;
   },
 
-  searchOptions: function() {
-    return searchOptions;
-  },
-
   active: function() {
     return active;
   }
@@ -42,7 +37,6 @@ RecordStore.registerHandler(MailConstants.SHOW, function(payload) {
 });
 
 RecordStore.registerHandler(MailConstants.SEARCH, function(payload) {
-  searchOptions = payload.options;
   loaded = false;
 
   this.emitChange();
@@ -50,7 +44,6 @@ RecordStore.registerHandler(MailConstants.SEARCH, function(payload) {
 
 RecordStore.registerHandler(MailConstants.SEARCH_SUCCESS, function(payload) {
   mails = payload;
-  active = payload[0];
   loaded = true;
 
   this.emitChange();
@@ -71,6 +64,7 @@ RecordStore.registerHandler(MailConstants.REMOVE_FROM_CATEGORY_SUCCESS, function
     active = null;
     mails = _.without(mails, mail);
   }
+  mail.state = "";
 
   this.emitChange();
 });

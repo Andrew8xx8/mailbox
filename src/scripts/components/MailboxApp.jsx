@@ -9,6 +9,7 @@ var Fluxable = require('../behaviors/Fluxable');
 var MailActions = require('../actions/MailActions');
 var MailStore = require('../stores/MailStore');
 
+var Row = require('react-bootstrap/Row');
 var Col = require('react-bootstrap/Col');
 
 var MailList = require('./MailList');
@@ -22,15 +23,15 @@ var MailboxApp = React.createClass({
 
   render: function() {
     return <div className="container">
-      <div className="row">
-        <div className="col-sm-3 col-md-2">
+      <Row>
+        <Col sm={3} md={2}>
           <h2>Mailbox</h2>
-        </div>
-        <div className="col-sm-9 col-md-10">
-        </div>
-      </div>
+        </Col>
+        <Col sm={9} md={10}>
+        </Col>
+      </Row>
       <hr />
-      <div className="row">
+      <Row>
         <Sidebar />
         <Col sm={4} md={5}>
           <this.props.activeRouteHandler/>
@@ -38,7 +39,7 @@ var MailboxApp = React.createClass({
         <Col sm={4} md={5}>
           <ActiveMail />
         </Col>
-      </div>
+      </Row>
     </div>;
   }
 });

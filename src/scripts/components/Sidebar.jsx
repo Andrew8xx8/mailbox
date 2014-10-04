@@ -13,6 +13,7 @@ var Col = require('react-bootstrap/Col');
 
 var UnreadBadge = require('./UnreadBadge');
 var NavLink = require('./NavLink');
+var TotalCount = require('./TotalCount');
 
 var Sidebar = React.createClass({
   mixins: [Fluxable],
@@ -23,14 +24,16 @@ var Sidebar = React.createClass({
       inbox: MailStore.byCategory("inbox"),
       highlited: MailStore.byCategory("highlited"),
       important: MailStore.byCategory("important"),
-      spam: MailStore.byCategory("spam")
+      spam: MailStore.byCategory("spam"),
+      all: MailStore.all()
     };
   },
 
   render: function() {
     return <Col sm={3} md={2}>
-      <a href="#" className="btn btn-danger btn-sm btn-block" role="button">COMPOSE</a>
-      <hr />
+      <TotalCount />
+
+      <br />
 
       <Nav bsStyle={'pills'} activeKey={1} stacked={true}>
         <NavLink route="inbox">
@@ -54,7 +57,7 @@ var Sidebar = React.createClass({
         </NavLink>
 
         <NavLink route="all">
-          <UnreadBadge mails={this.state.inbox} />
+          <UnreadBadge mails={this.state.all} />
           All mail
         </NavLink>
       </Nav>

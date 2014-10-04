@@ -8,16 +8,10 @@ var MailRepository = require('../repositories/MailRepository');
 
 var MailStore = require('../stores/MailStore');
 
-function search(options) {
-  var searchOptions = options || {};
+function search() {
+  AppDispatcher.handleAction(MailConstants.SEARCH);
 
-  searchOptions = _.merge(MailStore.searchOptions(), searchOptions);
-
-  AppDispatcher.handleAction(MailConstants.SEARCH, {
-    options: options
-  });
-
-  MailRepository.search(options).then(function(mails) {
+  MailRepository.search().then(function(mails) {
     AppDispatcher.handleAction(MailConstants.SEARCH_SUCCESS, mails);
   }).fail(function(err) {
     AppDispatcher.handleAction(MailConstants.SEARCH_FAIL, err);

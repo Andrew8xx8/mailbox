@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Q = require('q');
 
 function backendLatency() {
-  return Math.round(Math.random() * 100) + 1000;
+  return Math.round(Math.random() * 100);
 }
 
 module.exports = {
@@ -14,13 +14,6 @@ module.exports = {
     // Эмулируем задержку бекенда
     setTimeout(function() {
       var data = require('./data.json');
-
-      if (_.has(options, "token") && options.token.lenth > 3) {
-        data = _.filter(data, function(item) {
-          return item.subjectindexOf(options.token) > -1;
-        });
-      }
-
       deferred.resolve(data);
     }, backendLatency());
 
