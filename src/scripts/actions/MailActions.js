@@ -24,11 +24,11 @@ function search(options) {
   });
 }
 
-function destroy(mail) {
-  AppDispatcher.handleAction(MailConstants.DESTROY, mail);
+function removeFromCategory(payload) {
+  AppDispatcher.handleAction(MailConstants.REMOVE_FROM_CATEGORY, payload);
 
-  MailRepository.destroy(mail).then(function(mail) {
-    AppDispatcher.handleAction(MailConstants.DESTROY_SUCCESS, mail);
+  MailRepository.removeFrom(payload).then(function(payload) {
+    AppDispatcher.handleAction(MailConstants.REMOVE_FROM_CATEGORY_SUCCESS, payload);
   });
 }
 
@@ -56,10 +56,15 @@ function toggleHighlight(mail) {
   });
 }
 
+function show(mail) {
+  AppDispatcher.handleAction(MailConstants.SHOW, mail);
+}
+
 module.exports = {
   search: search,
-  destroy: destroy,
+  removeFromCategory: removeFromCategory,
   markAsUnRead: markAsUnRead,
   markAsRead: markAsRead,
-  toggleHighlight: toggleHighlight
+  toggleHighlight: toggleHighlight,
+  show: show
 };

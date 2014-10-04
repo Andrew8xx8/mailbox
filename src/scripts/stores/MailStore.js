@@ -9,6 +9,7 @@ var MailConstants = require('../constants/MailConstants');
 var mails = [];
 var loaded = false;
 var searchOptions = {};
+var active = null;
 
 var RecordStore = new Store({
   all: function() {
@@ -28,6 +29,16 @@ var RecordStore = new Store({
   searchOptions: function() {
     return searchOptions;
   },
+
+  active: function() {
+    return active;
+  }
+});
+
+RecordStore.registerHandler(MailConstants.SHOW, function(payload) {
+  active = payload;
+
+  this.emitChange();
 });
 
 RecordStore.registerHandler(MailConstants.SEARCH, function(payload) {
@@ -39,21 +50,27 @@ RecordStore.registerHandler(MailConstants.SEARCH, function(payload) {
 
 RecordStore.registerHandler(MailConstants.SEARCH_SUCCESS, function(payload) {
   mails = payload;
+  active = payload[0];
   loaded = true;
 
   this.emitChange();
 });
 
-RecordStore.registerHandler(MailConstants.DESTROY, function(payload) {
+RecordStore.registerHandler(MailConstants.REMOVE_FROM_CATEGORY, function(payload) {
   var mail = _.find(mails, { id: payload.mail.id });
-  mail.state = "deleting";
+  mail.state = "removing";
 
   this.emitChange();
 });
 
-RecordStore.registerHandler(MailConstants.DESTROY_SUCCESS, function(payload) {
+RecordStore.registerHandler(MailConstants.REMOVE_FROM_CATEGORY_SUCCESS, function(payload) {
   var mail = _.find(mails, { id: payload.mail.id });
-  mail.category = ['deleted'];
+  mail.categories = _.without(mail.categories, payload.category);
+
+  if (mail.categories.length < 1) {
+    active = null;
+    mails = _.without(mails, mail);
+  }
 
   this.emitChange();
 });
@@ -100,7 +117,7 @@ RecordStore.registerHandler(MailConstants.TOGGLE_HIGHLIGHT_SUCCESS, function(pay
   mail.state = "";
 
   if (_.contains(mail.categories, "highlited")) {
-    mail.categories = _.remove(mail.categories, "highlited");
+    mail.categories = _.without(mail.categories, "highlited");
   } else {
     mail.categories.push("highlited");
   }

@@ -39,6 +39,7 @@ var MailList = React.createClass({
   },
 
   handleClick: function(mail) {
+    MailActions.show(mail);
     MailActions.markAsRead(mail);
   }
 });

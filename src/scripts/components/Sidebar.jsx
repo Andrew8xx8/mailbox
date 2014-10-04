@@ -6,16 +6,11 @@
 
 var React = require('react/addons');
 var Fluxable = require('../behaviors/Fluxable');
-var MailActions = require('../actions/MailActions');
 var MailStore = require('../stores/MailStore');
 
-var Navbar = require('react-bootstrap/Navbar');
 var Nav = require('react-bootstrap/Nav');
-var NavItem = require('react-bootstrap/NavItem');
-var MenuItem = require('react-bootstrap/MenuItem');
 var Col = require('react-bootstrap/Col');
 
-var MailList = require('./MailList');
 var UnreadBadge = require('./UnreadBadge');
 var NavLink = require('./NavLink');
 
@@ -57,7 +52,13 @@ var Sidebar = React.createClass({
           <UnreadBadge mails={this.state.spam} />
           Spam
         </NavLink>
+
+        <NavLink route="all">
+          <UnreadBadge mails={this.state.inbox} />
+          All mail
+        </NavLink>
       </Nav>
+
     </Col>;
   },
 });

@@ -14,6 +14,7 @@ var MailboxApp = require('./MailboxApp');
 var Inbox = require('./Inbox');
 var Highlights = require('./Highlights');
 var Spam = require('./Spam');
+var AllMail = require('./AllMail');
 
 React.renderComponent((
   <Routes location="history">
@@ -22,6 +23,7 @@ React.renderComponent((
       <Route name="highlited" handler={Highlights}/>
       <Route name="important" handler={Inbox}/>
       <Route name="spam" handler={Spam}/>
+      <Route name="all" handler={AllMail}/>
 
       <DefaultRoute handler={Inbox}/>
     </Route>

@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Q = require('q');
 
 function backendLatency() {
-  return Math.round(Math.random() * 100);
+  return Math.round(Math.random() * 100) + 1000;
 }
 
 module.exports = {
@@ -52,6 +52,16 @@ module.exports = {
 
     setTimeout(function() {
       deferred.resolve(mail);
+    }, backendLatency());
+
+    return deferred.promise;
+  },
+
+  removeFrom: function(payload) {
+    var deferred = Q.defer();
+
+    setTimeout(function() {
+      deferred.resolve(payload);
     }, backendLatency());
 
     return deferred.promise;

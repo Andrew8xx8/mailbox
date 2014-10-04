@@ -13,6 +13,7 @@ var Col = require('react-bootstrap/Col');
 
 var MailList = require('./MailList');
 var Sidebar = require('./Sidebar');
+var ActiveMail = require('./ActiveMail');
 
 var MailboxApp = React.createClass({
   componentDidMount: function() {
@@ -31,8 +32,11 @@ var MailboxApp = React.createClass({
       <hr />
       <div className="row">
         <Sidebar />
-        <Col sm={9} md={10}>
+        <Col sm={4} md={5}>
           <this.props.activeRouteHandler/>
+        </Col>
+        <Col sm={4} md={5}>
+          <ActiveMail />
         </Col>
       </div>
     </div>;
